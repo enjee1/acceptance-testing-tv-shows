@@ -1,0 +1,8 @@
+<h1>List of Shows</h1>
+<ul>
+  <% @tv_shows.each do |show| %>
+    <li>Title: <%= "#{show["title"]}" + " (#{show["network"]}) " %> </li>    
+    <li>Synopsis: <%= show["synopsis"] %> </li>
+    <li>Genre: <%= show["genre"] %> </li>
+  <% end %>
+</ul>
