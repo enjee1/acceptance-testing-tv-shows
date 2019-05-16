@@ -19,7 +19,11 @@
       <% end %>
     </select><br>
 
-    <input type="submit" value="Add TV Show">
+
+    <% if @error_message %>
     <p><%= @error_message %></p>
+    <% end %>
+
+    <input type="submit" value="Add TV Show">
 
 </form>
