@@ -8,14 +8,14 @@ require "spec_helper"
 # [X]  I must provide the title, network, and starting year, genre, and synopsis
 # [X]  The genre must be one of the following: Action, Mystery,
 #     Drama, Comedy, Fantasy
-# []  If any of the above criteria is left blank, the form should be
+# [X]  If any of the above criteria is left blank, the form should be
 #     re-displayed with the failing validation message
 
 feature "user adds a new TV show" do
 
   scenario "successfully add a new show" do
     visit "/television_shows/new"
-    
+
     fill_in "Title", with: "Friends"
     fill_in "Network", with: "NBC"
     fill_in "Starting Year", with: "1994"
