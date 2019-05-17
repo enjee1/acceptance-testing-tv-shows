@@ -17,23 +17,29 @@ end
 
 post "/television_shows" do
   @genres = TelevisionShow::GENRES
-  show_details = params.values
-  CSV.foreach("television-shows.csv", headers: true) do |row|
-    show_details.each do |field|
-      
-    end
-  end
 
-  if show_details.any? { |field| field == "" }
+  duplicate_found = dupe_exists(params)
+  if params.values.any? { |field| field == "" }
     @error_message = "Please fill in all required fields"
     erb :new
-  # elsif show_list.include?(show_details.each { |detail| detail.to_s } )
-  #   @error_message = "The show has already been added"
-  #   erb :new
+  elsif duplicate_found
+    @error_message = "The show has already been added"
+    erb :new
   else
     CSV.open("television-shows.csv", "a") do |file|
-      file << show_details
+      file << params.values
     end
     redirect "/television_shows"
   end
+end
+
+def dupe_exists(tv_show)
+  duplicate_found = false
+  CSV.foreach("television-shows.csv", headers: true) do |row|
+      if row["title"] == tv_show["title"]
+          duplicate_found = true
+          break
+      end
+  end
+  duplicate_found
 end
